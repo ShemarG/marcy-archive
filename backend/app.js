@@ -1,15 +1,13 @@
 let express = require('express');
 let cookieParser = require('cookie-parser');
-let logger = require('morgan');
+let connectToDB = require('./db/connect')
+let { projectsRouter } = require('./routes')
 
-
-let indexRouter = require('./routes/index');
-let usersRouter = require('./routes/projects');
+connectToDB()
 
 let app = express();
 let distPath = '../frontend/dist'
 
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -17,12 +15,13 @@ app.use(cookieParser());
 app.use(express.static(distPath))
 
 // Makes sure we serve the Svelte app first and foremost so it renders with every get request.
-// It is ultimately in charge of doing routing to this server. 
-app.get('*', (req, res) => {
-  res.sendFile('index.html', distPath)
-})
+// It is ultimately in charge of doing routing to this server.
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// Commented out while api is under construction.
+// app.get('*', (req, res) => {
+//   res.sendFile('index.html', distPath)
+// })
+
+app.use('/projects', projectsRouter);
 
 module.exports = app;
