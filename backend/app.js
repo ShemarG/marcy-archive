@@ -1,7 +1,7 @@
 let express = require('express');
 let cookieParser = require('cookie-parser');
 let connectToDB = require('./db/connect')
-let { projectsRouter } = require('./routes')
+let { projectsRouter, documentsRouter, photosRouter } = require('./routes')
 
 connectToDB()
 
@@ -23,5 +23,7 @@ app.use(express.static(distPath))
 // })
 
 app.use('/projects', projectsRouter);
+app.use('/documents', documentsRouter);
+app.use('/photos', photosRouter);
 
 module.exports = app;
