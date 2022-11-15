@@ -1,18 +1,18 @@
-const { Project } = require('../schemas');
+const { Document } = require('../schemas');
 
-const getProjectById = async (req, res) => {
+const getDocumentById = async (req, res) => {
 	let { id } = req.params
 	try {
-		let result = await Project.findById(id)
+		let result = await Document.findById(id)
 		res.status(200).json(result)
 	} catch (e) {
 		res.status(500).send(e);
 	}
 }
 
-const createProject = async (req, res) => {
+const createDocument = async (req, res) => {
   try {
-    await Project.create(req.body)
+    await Document.create(req.body)
     res.status(201).send('Document created')
   } catch (e) {
     console.log(e)
@@ -20,20 +20,20 @@ const createProject = async (req, res) => {
   }
 }
 
-const updateProject = async (req, res) => {
+const updateDocument = async (req, res) => {
   let { id } = req.params
   try {
-    await Project.findByIdAndUpdate(id, req.body)
+    await Document.findByIdAndUpdate(id, req.body)
     res.status(204).send('Document updated')
   } catch (e) {
     res.status(500).send(e)
   }
 }
 
-const deleteProject = async (req, res) => {
+const deleteDocument = async (req, res) => {
   let { id } = req.params
   try {
-    await Project.findByIdAndDelete(id)
+    await Document.findByIdAndDelete(id)
     res.status(204).send('Document deleted')
   } catch (e) {
     res.status(500).send(e)
@@ -41,8 +41,8 @@ const deleteProject = async (req, res) => {
 }
 
 module.exports = {
-	getProjectById,
-  createProject,
-  updateProject,
-  deleteProject
+	getDocumentById,
+  createDocument,
+  updateDocument,
+  deleteDocument
 }

@@ -1,5 +1,9 @@
-let projectsController = require('./projects')
+const projectsController = require('./projects')
+const documentsController = require('./documents')
+const photosController = require('./photos')
 
 module.exports = {
-  projectsController
+  projectsController,
+  documentsController,
+  photosController
 }
