@@ -10,7 +10,6 @@
 
 <main>
  <Navbar page={page} />
- Projects page
 </main>
 
 <style>

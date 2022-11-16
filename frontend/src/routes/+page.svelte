@@ -4,13 +4,11 @@
   let page
   afterUpdate(() => {
     page = window.location.pathname
-    console.log(page)
   })
 </script>
 
 <main>
  <Navbar page={page} />
- Howdydoo
 </main>
 
 <style>
