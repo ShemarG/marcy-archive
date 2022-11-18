@@ -4,7 +4,7 @@
     LANDING: '/',
     PROJECTS: '/projects',
     DOCUMENTS: '/documents',
-    NEW_ARCHIVE: '/new-archive'
+    ADD_ARCHIVE: '/add-archive'
   }
   export let page;
 </script>
@@ -43,8 +43,8 @@
           {#if page !== pages.DOCUMENTS}
             <a href="/documents" class="button is-light">Documents</a>
           {/if}
-          {#if page !== pages.NEW_ARCHIVE}
-            <a href="/new-archive" class="button is-primary">+ New Archive</a>
+          {#if page !== pages.ADD_ARCHIVE}
+            <a href="/add-archive" class="button is-primary">+ New Archive</a>
           {/if}
         </div>
       </div>
