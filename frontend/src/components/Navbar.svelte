@@ -1,12 +1,14 @@
 <script>
+  import { link, location } from 'svelte-spa-router'
   let showBurger = false;
+
   let pages = {
     LANDING: '/',
     PROJECTS: '/projects',
     DOCUMENTS: '/documents',
-    NEW_ARCHIVE: '/new-archive'
+    NEW_ARCHIVE: '/add-archive'
   }
-  export let page;
+  
 </script>
 
 <nav class="navbar" aria-label="main navigation">
@@ -37,14 +39,14 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          {#if page !== pages.PROJECTS}
+          {#if $location !== pages.PROJECTS}
             <a href="/projects" class="button is-light">Projects</a>
           {/if}
-          {#if page !== pages.DOCUMENTS}
+          {#if $location !== pages.DOCUMENTS}
             <a href="/documents" class="button is-light">Documents</a>
           {/if}
-          {#if page !== pages.NEW_ARCHIVE}
-            <a href="/new-archive" class="button is-primary">+ New Archive</a>
+          {#if $location !== pages.NEW_ARCHIVE}
+            <a use:link href="/add-archive" class="button is-primary">+ New Archive</a>
           {/if}
         </div>
       </div>

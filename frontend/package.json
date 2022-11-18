@@ -8,6 +8,13 @@
     "build": "vite build",
     "preview": "vite preview"
   },
+  "dependencies": {
+    "@fortawesome/free-brands-svg-icons": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "bulma": "^0.9.4",
+    "svelte-fa": "^3.0.3",
+    "svelte-spa-router": "^3.3.0"
+  },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.1.0",
     "svelte": "^3.52.0",
