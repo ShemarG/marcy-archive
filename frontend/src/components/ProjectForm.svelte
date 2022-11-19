@@ -7,6 +7,7 @@
   import { faPenToSquare, faUser, faPlus, faLink, faUpload, faXmark } from '@fortawesome/free-solid-svg-icons'
 	import AuthorPillContainer from './AuthorPillContainer.svelte';
   import { fileToBinary, imageBinaryToDataURL } from '../utils'
+  import axios from 'axios'
   
   const currentYear = new Date(Date.now()).getFullYear()
 
@@ -30,16 +31,22 @@
   let screenshotInput = ''
   let authorInput = ''
 
-  const submit = () => {
+  const submit = async () => {
     if (!validateRequiredInputs()) return
     let payload = {}
     payload.name = projectName
     payload.cohort = {location: selectedLocation, start: `${selectedStart} ${selectedYear}`}
-    if (screenshotAsBinary) payload.screenshot = screenshotAsBinary
+    if (screenshotAsBinary) payload.screenshot = Array.from(screenshotAsBinary)
     payload.authors = authors
     payload.github_repo_link = repoLink
     if (pagesLink) payload.github_pages_link = pagesLink
     payload.assignment = selectedAssignment
+    try {
+      console.log(payload);
+      await axios.post('http://localhost:3000/api/projects', payload)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   const updateScreenshotPreview = async (e) => {
