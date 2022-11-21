@@ -6,7 +6,7 @@
   import Fa from 'svelte-fa/src/fa.svelte'
   import { faPenToSquare, faUser, faPlus, faLink, faUpload, faXmark } from '@fortawesome/free-solid-svg-icons'
 	import AuthorPillContainer from './AuthorPillContainer.svelte';
-  import { fileToBinary, imageBinaryToDataURL } from '../utils'
+  import { fileToBase64, fileToObjectURL } from '../utils'
   import axios from 'axios'
   
   const currentYear = new Date(Date.now()).getFullYear()
@@ -15,7 +15,7 @@
   let projectName = '';
   let authors = [];
   let selectedYear = currentYear;
-  let screenshotAsBinary;
+  let screenshot;
   let selectedStart = 'Spring';
   let selectedAssignment = assignments[0];
   let repoLink = '';
@@ -27,7 +27,7 @@
   let repoLinkValid;
   let authorValid;
   
-  let screenshotImgUrl;
+  let screenshotPreviewURL;
   let screenshotInput = ''
   let authorInput = ''
 
@@ -36,7 +36,7 @@
     let payload = {}
     payload.name = projectName
     payload.cohort = {location: selectedLocation, start: `${selectedStart} ${selectedYear}`}
-    if (screenshotAsBinary) payload.screenshot = Array.from(screenshotAsBinary)
+    if (screenshot) payload.screenshot = screenshot
     payload.authors = authors
     payload.github_repo_link = repoLink
     if (pagesLink) payload.github_pages_link = pagesLink
@@ -51,10 +51,15 @@
 
   const updateScreenshotPreview = async (e) => {
     if (screenshotInput == '') return;
+    if (screenshotPreviewURL) URL.revokeObjectURL(screenshotPreviewURL)
     let file = e.target.files[0]
-    let binary = await fileToBinary(file)
-    screenshotAsBinary = binary
-    screenshotImgUrl = imageBinaryToDataURL(binary)
+    try {
+      let dataURL = await fileToBase64(file)
+      screenshot = dataURL.split(';base64,')[1]
+      screenshotPreviewURL = fileToObjectURL(file)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   const validateRequiredInputs = () => {
@@ -84,8 +89,8 @@
 
   const removeScreenshot = () => {
     screenshotInput = ''
-    screenshotAsBinary = ''
-    screenshotImgUrl = '';
+    screenshot = ''
+    screenshotPreviewURL = '';
   }
 
   $: if (!authors.length && authorValid !== undefined) authorValid = false
@@ -172,7 +177,7 @@
         </span>
         <span class="file-name">{screenshotInput ? screenshotInput.split(/[\/\\]/)[2] : '...'}</span>
       </label>
-      {#if screenshotImgUrl}
+      {#if screenshotPreviewURL}
         <button on:click={removeScreenshot} class="button is-danger">
           <span class="icon is-small">
             <Fa icon={faXmark}/>
@@ -182,7 +187,7 @@
     </div>
     
     <figure>
-      <img src={screenshotImgUrl} alt="Screenshot Preview"/>
+      <img src={screenshotPreviewURL} alt="Screenshot Preview"/>
     </figure>
   </div>
 

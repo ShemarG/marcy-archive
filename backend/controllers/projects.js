@@ -3,7 +3,8 @@ const { Project } = require('../schemas');
 const getProjectById = async (req, res) => {
 	let { id } = req.params
 	try {
-		let result = await Project.findById(id)
+		let result = await Project.findById(id).lean()
+    if (result.screenshot) result.screenshot = result.screenshot.toString('base64')
 		res.status(200).json(result)
 	} catch (e) {
 		res.status(500).send(e);
@@ -23,7 +24,8 @@ const createProject = async (req, res) => {
 const updateProject = async (req, res) => {
   let { id } = req.params
   try {
-    await Project.findByIdAndUpdate(id, req.body)
+    let result = await Project.findByIdAndUpdate(id, req.body).lean()
+    if (result.screenshot) result.screenshot = result.screenshot.toString('base64')
     res.status(204).send('Document updated')
   } catch (e) {
     res.status(500).send(e)

@@ -13,8 +13,9 @@ let ProjectSchema = new Schema({
 })
 
 ProjectSchema.pre(['save', 'findOneAndUpdate'], function (){ 
-  if (this.authors && this.authors.length) this.authors.sort()
-  if (this.screenshot) this.screenshot = Buffer.from(this.screenshot.buffer)
+  this.authors.sort()
+  if (this.screenshot) this.screenshot = Buffer.from(this.screenshot)
+
 })
 
 module.exports = mongoose.model('Project', ProjectSchema)
