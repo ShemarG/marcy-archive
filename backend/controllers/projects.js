@@ -1,10 +1,28 @@
 const { Project } = require('../schemas');
 
+// Not RESTful
+const getProjectList = async (req, res) => {
+    const { sort, filter, skip } = req.body
+  try {
+    let result = await Project
+      .find(filter)
+      .sort(`${sort} -cohort.start`)
+      .skip(skip)
+      .limit(20)
+    res.status(200).json(result)
+  } catch (e) {
+    console.log(e)
+    res.status(500).send(e)
+  }
+}
+
 const getProjectById = async (req, res) => {
 	let { id } = req.params
 	try {
 		let result = await Project.findById(id).lean()
-    if (result.screenshot) result.screenshot = result.screenshot.toString('base64')
+    if (result.screenshot) {
+      result.screenshot = result.screenshot.toString('base64')
+    }
 		res.status(200).json(result)
 	} catch (e) {
 		res.status(500).send(e);
@@ -25,9 +43,12 @@ const updateProject = async (req, res) => {
   let { id } = req.params
   try {
     let result = await Project.findByIdAndUpdate(id, req.body).lean()
-    if (result.screenshot) result.screenshot = result.screenshot.toString('base64')
+    if (result.screenshot) {
+      result.screenshot = result.screenshot.toString('base64')
+    }
     res.status(204).send('Document updated')
   } catch (e) {
+    console.log(e)
     res.status(500).send(e)
   }
 }
@@ -43,6 +64,7 @@ const deleteProject = async (req, res) => {
 }
 
 module.exports = {
+  getProjectList,
 	getProjectById,
   createProject,
   updateProject,
