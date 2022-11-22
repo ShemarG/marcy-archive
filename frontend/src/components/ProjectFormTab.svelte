@@ -6,15 +6,14 @@
   import Fa from 'svelte-fa/src/fa.svelte'
   import { faPenToSquare, faUser, faPlus, faLink, faUpload, faXmark } from '@fortawesome/free-solid-svg-icons'
 	import AuthorPillContainer from './AuthorPillContainer.svelte';
-  import { fileToBase64, fileToObjectURL } from '../utils'
+  import { getCurrentYear, fileToBase64, fileToObjectURL } from '../utils'
   import axios from 'axios'
   
-  const currentYear = new Date(Date.now()).getFullYear()
 
   // Data to send in API call.
   let projectName = '';
   let authors = [];
-  let selectedYear = currentYear;
+  let selectedYear = getCurrentYear();
   let screenshot;
   let selectedStart = 'Spring';
   let selectedAssignment = assignments[0];
