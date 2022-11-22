@@ -34,12 +34,19 @@
     if (!validateRequiredInputs()) return
     let payload = {}
     payload.name = projectName
-    payload.cohort = {location: selectedLocation, start: `${selectedStart} ${selectedYear}`}
-    if (screenshotAsBinary) payload.screenshot = screenshotAsBinary
+    payload.cohort = {
+      location: selectedLocation,
+      start: `${selectedStart} ${selectedYear}`
+    }
     payload.authors = authors
     payload.github_repo_link = repoLink
-    if (pagesLink) payload.github_pages_link = pagesLink
     payload.assignment = selectedAssignment
+    if (screenshotAsBinary){ 
+      payload.screenshot = screenshotAsBinary
+    }
+    if (pagesLink) {
+      payload.github_pages_link = pagesLink
+    }
   }
 
   const updateScreenshotPreview = async (e) => {
@@ -69,10 +76,12 @@
   }
 
   const addAuthor = () => {
-    authors.push(authorInput)
-    if (authorValid) authorValid = true
+    if (authorInput) {
+      authors.push(authorInput)
+      authorValid = true
+      authorInput = ''
+    }
     authors = authors
-    authorInput = ''
   }
 
   const removeScreenshot = () => {
@@ -85,7 +94,7 @@
   
 </script>
 
-<div class="archive-form">
+<div class="project-tab">
 
   <Input
     label="Project Name"
@@ -96,7 +105,7 @@
     errorMessage="Please add a name for the project."
   />
 
-  <div class="is-flex is-align-items-center">
+  <div class="author-input is-align-items-center">
     <Input 
       label="Author(s)"
       icon={faUser}
@@ -106,7 +115,7 @@
       errorMessage="Please list the author(s) of this project"
       deferValidation={true}
     />
-    <button on:click={addAuthor} class="button is-success">
+    <button on:click={addAuthor} class="add-author-btn button is-success">
       <span class="icon is-small">
         <Fa icon={faPlus}/>
       </span>
@@ -116,7 +125,7 @@
 
   <AuthorPillContainer bind:content={authors} />
 
-  <div class="is-flex">
+  <div class="github-info">
     <Input 
       label="Github Repo Link"
       isSuccess={repoLinkValid}
@@ -141,7 +150,7 @@
     <label class="label">Assignment</label>
     <div class="control">
       <div class="select">
-        <select bind:value={selectedAssignment}>
+        <select class="assignment-dropdown" bind:value={selectedAssignment}>
           {#each assignments as assignment}
             <option value={assignment}>{assignment}</option>
           {/each}
@@ -173,11 +182,64 @@
         </button>
       {/if}
     </div>
-    
-    <figure>
-      <img src={screenshotImgUrl} alt="Screenshot Preview"/>
-    </figure>
+    {#if screenshotImgUrl}
+      <figure>
+        <img class="image-preview" src={screenshotImgUrl} alt="Screenshot Preview"/>
+      </figure>
+    {/if}
   </div>
 
   <button on:click={submit} class="button">Submit</button>
 </div>
+
+<style>
+  .image-preview {
+    margin-top: 20px;
+  }
+  .project-tab {
+    margin: 0 auto;
+    margin-top: 25px;
+  }
+  .assignment-dropdown {
+    padding-right: 0.13em !important;
+  }
+
+  @media screen and (min-width: 375px) {
+    .assignment-dropdown {
+      padding-right: 1.13em !important;
+    }
+  }
+
+  @media screen and (min-width: 425px) {
+    .assignment-dropdown {
+      padding-right: 3.13em !important;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .author-input {
+      display: flex;
+    }
+    
+    .add-author-btn {
+      margin-left: 15px;
+    }
+
+    .project-tab {
+      border: 2px solid;
+      border-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 5%;
+      padding: 40px;
+      width: 85%;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+   .project-tab {
+    width: 75%;
+    max-width: 1020px;
+    margin-top: 50px;
+   }
+  }
+</style>
