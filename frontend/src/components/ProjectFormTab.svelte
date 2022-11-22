@@ -35,11 +35,17 @@
     if (!validateRequiredInputs()) return
     let payload = {}
     payload.name = projectName
-    payload.cohort = {location: selectedLocation, start: selectedStart, year: selectedYear}
-    if (screenshot) payload.screenshot = screenshot
     payload.authors = authors
     payload.github_repo_link = repoLink
     payload.assignment = selectedAssignment
+    payload.cohort = {
+      location: selectedLocation,
+      start: selectedStart,
+      year: selectedYear
+    }
+    if (screenshot) {
+      payload.screenshot = screenshot
+    }
     try {
       console.log(payload);
       await axios.post('http://localhost:3000/api/projects', payload)
