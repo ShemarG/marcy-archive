@@ -8,7 +8,6 @@
     DOCUMENTS: '/documents',
     NEW_ARCHIVE: '/add-archive'
   }
-  
 </script>
 
 <nav class="navbar" aria-label="main navigation">
@@ -40,13 +39,13 @@
       <div class="navbar-item">
         <div class="buttons">
           {#if $location !== pages.PROJECTS}
-            <a href="/projects" class="button is-light">Projects</a>
+            <a use:link href={pages.PROJECTS} class="button is-light">Projects</a>
           {/if}
           {#if $location !== pages.DOCUMENTS}
-            <a href="/documents" class="button is-light">Documents</a>
+            <a use:link href={pages.DOCUMENTS} class="button is-light">Documents</a>
           {/if}
           {#if $location !== pages.NEW_ARCHIVE}
-            <a use:link href="/add-archive" class="button is-primary">+ New Archive</a>
+            <a use:link href={pages.NEW_ARCHIVE} class="button is-primary">+ New Archive</a>
           {/if}
         </div>
       </div>

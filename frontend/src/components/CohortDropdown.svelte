@@ -22,10 +22,10 @@
 
 <div class="field">
   <label class="label">Cohort</label>
-  <div class="is-flex">
+  <div class="cohort-dropdowns">
     <div class="control">
       <div class="select">
-        <select bind:value={start}>
+        <select class="dropdown" bind:value={start}>
           {#if (year > 2020)}
             <option>Spring</option>
           {/if}
@@ -36,7 +36,7 @@
 
     <div class="control">
       <div class="select">
-        <select bind:value={year}>
+        <select class="dropdown" bind:value={year}>
           <option value={currentYear}>{currentYear}</option>
           {#each years as year}
             <option value={year}>{year}</option>
@@ -46,3 +46,32 @@
     </div>
   </div>
 </div>
+
+<style>
+  .cohort-dropdowns {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .dropdown {
+    padding-right: 4.5em !important;
+  }
+
+  @media screen and (min-width: 375px) {
+    .dropdown {
+      padding-right: 5.5em !important;
+    }
+  }
+
+  @media screen and (min-width: 425px) {
+    .dropdown {
+      padding-right: 7.5em !important;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .cohort-dropdowns {
+      justify-content: initial;
+    }
+  }
+</style>

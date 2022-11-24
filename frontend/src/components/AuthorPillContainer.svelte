@@ -23,6 +23,19 @@
     </button>
     {/each}
   {:else}
-    <button class="button" disabled>Added authors will show up here</button>
+    <button class="button" disabled><p>Added authors will show up here</p></button>
   {/if}
 </article>
+
+<style>
+  .box {
+    padding: 0.8rem;
+    padding-left: 0px;
+    margin-top: 10px;
+    margin-left: 0px;
+    box-shadow: none;
+  }
+  .box  {
+    width: 100%;
+  }
+</style>

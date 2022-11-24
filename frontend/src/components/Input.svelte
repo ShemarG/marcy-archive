@@ -11,20 +11,28 @@
   // This unhooks the validation of the input being controlled by the reactive block below.
   export let deferValidation = false;
 
+
   let controlSuccessClass = (isSuccess) => {
-    if (hasValidation && isSuccess) return 'is-success'
-    if (hasValidation && isSuccess === false) return 'is-danger'
-    return ''
+    if (hasValidation && isSuccess) {
+      return 'is-success'
+    } else if (hasValidation && isSuccess === false) {
+      return 'is-danger'
+    } else {
+      return ''
+    }
   }
 
   // Reactively toggles the is-success classes based on the length of the input value.
-  $: if (hasValidation && isSuccess !== undefined && !deferValidation) isSuccess = !!value.length
+  $: if (hasValidation && isSuccess !== undefined && !deferValidation) {
+    isSuccess = !!value.length
+  }
 
 </script>
 
 <div class="field">
+  <!-- svelte-ignore a11y-label-has-associated-control -->
   <label class="label">{label}</label>
-  <div class={`control ${icon ? 'has-icons-left' : ''} ${hasValidation ? 'has-icons-right' : ''}`}>
+  <div class={`control ${icon ? 'has-icons-left' : null} ${hasValidation ? 'has-icons-right' : null}`}>
     <input class={`input ${controlSuccessClass(isSuccess)}`} type="text" bind:value>
     {#if icon}
       <span class="icon is-small is-left">
