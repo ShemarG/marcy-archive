@@ -1,16 +1,8 @@
 <script>
+  import { possibleYears } from "../utils";
+
   export let start;
   export let year;
-
-  const currentYear = new Date(Date.now()).getFullYear()
-
-  const possibleYears = () => {
-    let years = []
-    for (let i=currentYear - 1; i >= 2019; i--) {
-      years.push(i)
-    }
-    return years
-  }
 
   const years = possibleYears()
 
@@ -37,7 +29,6 @@
     <div class="control">
       <div class="select">
         <select class="dropdown" bind:value={year}>
-          <option value={currentYear}>{currentYear}</option>
           {#each years as year}
             <option value={year}>{year}</option>
           {/each}
