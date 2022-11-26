@@ -1,6 +1,7 @@
 <script>
 
   import ProjectFormTab from '../components/ProjectFormTab.svelte'
+  import DocumentFormTab from '../components/DocumentFormTab.svelte'
   import Fa from 'svelte-fa/src/fa.svelte'
   import { faCode, faFile, faImage } from '@fortawesome/free-solid-svg-icons'
   
@@ -45,10 +46,10 @@
     {#if archiveType == 'project'}
       <ProjectFormTab />
     {/if}
-    <!-- {#if activeButton == 'document'}
-
+    {#if archiveType == 'document'}
+      <DocumentFormTab />
     {/if}
-    {#if activeButton == 'photo'}
+    <!-- {#if activeButton == 'photo'}
 
     {/if} -->
   </section>

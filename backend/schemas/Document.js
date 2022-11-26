@@ -3,7 +3,7 @@ let Schema = mongoose.Schema
 
 let DocumentSchema = new Schema({
   title: String,
-  cohort: {location: String, start: String},
+  cohort: {location: String, start: String, year: Number},
   authors: Array,
   document: Buffer,
   document_type: String,
