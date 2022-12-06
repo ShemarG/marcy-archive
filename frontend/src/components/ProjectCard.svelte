@@ -6,7 +6,7 @@
 <div class="project">
   <div class="project-image">
     <figure class="image">
-      <img src={project.screenshot ? project.screenshot : fallbackImage} alt={project.name} />
+      <img src={project.screenshot ? `data:image/png;base64,${project.screenshot}` : fallbackImage} alt={project.name} />
     </figure>
     <div class="project-content">
       <div class="content">
