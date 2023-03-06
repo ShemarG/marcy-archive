@@ -25,9 +25,9 @@
   }
 </script>
 
-<div class="is-flex sort-and-filter-bar">
+<div class="sort-and-filter-bar">
   {#each Object.keys(values.filters) as value}
-    <div class="is-flex is-flex-direction-column select-wrapper">
+    <div class="select-wrapper">
       <label class="label">{value}</label>
       <div class="select">
         <select
@@ -44,7 +44,7 @@
     </div>
   {/each}
 
-  <div class="is-flex is-flex-direction-column select-wrapper">
+  <div class="select-wrapper">
     <label class="label">Sort By</label>
     <div class="select">
       <select
@@ -59,3 +59,19 @@
     </div>
   </div>
 </div>
+
+<style>
+  .sort-and-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 40px;
+  }
+
+  select {
+    width: 100%;
+  }
+
+  .select-wrapper {
+    margin: 5px;
+  }
+</style>

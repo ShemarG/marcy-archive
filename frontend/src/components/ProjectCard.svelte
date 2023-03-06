@@ -52,6 +52,7 @@
   .project {
     width: 275px;
     height: 510px;
+    margin: 10px;
     max-height: 510px;
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
@@ -80,7 +81,6 @@
     left: 0;
     height: 100%;
     width: 100%;
-
     object-fit: cover;
     object-position: left;
   }
@@ -106,7 +106,6 @@
     flex-direction: column;
   }
   .project-content, .content {
-    border-radius: 10px;
     width: 100%;
     background-color: white;
     position: relative;
