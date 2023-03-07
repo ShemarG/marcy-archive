@@ -28,11 +28,13 @@
   let projects = [];
 
   // Sets default value for all the filters to "All".
-  let filter = Object.keys(projectsSortsAndFilters.filters)
-  .reduce((acc, curr) => {
-    acc[curr] = "All";
-    return acc;
-  }, {});
+  let filter = Object.keys(projectsSortsAndFilters.filters).reduce(
+    (acc, curr) => {
+      acc[curr] = "All";
+      return acc;
+    },
+    {}
+  );
 
   // Sets the default sort order .
   let sort = "-cohort.year -cohort.start -name";
@@ -42,7 +44,8 @@
     let filterPayload = {};
     if (filter.Year != "All") filterPayload["cohort.year"] = filter.Year;
     if (filter.Start != "All") filterPayload["cohort.start"] = filter.Start;
-    if (filter.Assignment != "All") filterPayload.assignment = filter.Assignment;
+    if (filter.Assignment != "All")
+      filterPayload.assignment = filter.Assignment;
     try {
       let response = await axios.post(
         "http://localhost:3000/api/projects/list",
@@ -58,17 +61,74 @@
   apiRequest();
 </script>
 
-<section class="sort-and-filter">
-  <SortAndFilterBar
-    on:sendRequest={apiRequest}
-    bind:selectedFilters={filter}
-    bind:selectedSort={sort}
-    values={projectsSortsAndFilters}
-  />
-</section>
+<div class="project-page">
+  <h1 class="page-title">Projects</h1>
+  <h3 class="page-subtitle">
+    Explore the last few years of projects built by some of the greatest minds
+    from Marcy!
+  </h3>
+  <section class="sort-and-filter">
+    <SortAndFilterBar
+      on:sendRequest={apiRequest}
+      bind:selectedFilters={filter}
+      bind:selectedSort={sort}
+      values={projectsSortsAndFilters}
+    />
+  </section>
 
-<section class="content-list">
-  {#each projects as project}
-    <ProjectCard {project} />
-  {/each}
-</section>
+  <section class="content-list">
+    <div class="projects-container">
+      {#each projects as project}
+        <ProjectCard {project} />
+      {/each}
+    </div>
+  </section>
+</div>
+
+<style>
+  .page-title {
+    font-size: 3em;
+    text-transform: uppercase;
+    font-weight: 900;
+    background: -webkit-linear-gradient(#0a0775, #0f09ac);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .page-subtitle {
+    font-size: 1em;
+    font-weight: 500;
+    width: 20em;
+    text-align: center;
+    padding: 20px;
+  }
+  .project-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  @media screen and (min-width: 768px) {
+    .projects-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      justify-content: center;
+    }
+    .page-title {
+      font-size: 5em;
+    }
+    .page-subtitle {
+      font-size: 2em;
+      font-weight: 500;
+      text-align: center;
+      padding: 20px;
+    }
+  }
+  @media screen and (min-width: 1440px) {
+    .projects-container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
