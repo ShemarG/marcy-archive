@@ -18,7 +18,7 @@
       </svg>
     </a>
     <div class="navbar-start">
-      <h1>The Marcy Lab School Archive</h1>
+      <h1>The Marcy Archive</h1>
     </div>
     <button
       on:click={(e) => (showBurger = !showBurger)}

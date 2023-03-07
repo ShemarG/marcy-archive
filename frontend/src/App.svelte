@@ -9,3 +9,13 @@
   <Router {routes} />
 </main>
 
+<style>
+  @font-face {
+    font-family: openSans;
+    src: url('OpenSans.ttf');
+  }
+  * {
+    font-family: openSans;
+  }
+</style>
+
