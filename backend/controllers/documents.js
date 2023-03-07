@@ -1,9 +1,30 @@
 const { Document } = require('../schemas');
 
+// Not RESTful
+const getDocumentList = async (req, res) => {
+  const { sort, filter, skip } = req.body
+  try {
+    let result = await Document
+      .find(filter)
+      .sort(sort)
+      .skip(skip)
+      .limit(20)
+      .lean()
+    result.forEach(item => {
+      item.document = item.document.toString();
+    })
+    res.status(200).json(result)
+  } catch (e) {
+    console.log(e)
+    res.status(500).send(e)
+  }
+}
+
 const getDocumentById = async (req, res) => {
 	let { id } = req.params
 	try {
-		let result = await Document.findById(id)
+		let result = await Document.findById(id).lean()
+    result.document = result.document.toString()
 		res.status(200).json(result)
 	} catch (e) {
 		res.status(500).send(e);
@@ -41,6 +62,7 @@ const deleteDocument = async (req, res) => {
 }
 
 module.exports = {
+  getDocumentList,
 	getDocumentById,
   createDocument,
   updateDocument,

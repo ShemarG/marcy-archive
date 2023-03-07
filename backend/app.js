@@ -1,5 +1,6 @@
 let express = require('express');
 let cookieParser = require('cookie-parser');
+let cors = require('cors')
 let connectToDB = require('./db/connect')
 let { projectsRouter, documentsRouter, photosRouter } = require('./routes')
 
@@ -8,6 +9,7 @@ connectToDB()
 let app = express();
 let distPath = '../frontend/dist'
 
+app.use(cors({origin: 'http://localhost:5173' }))
 app.use(express.json({ limit: '16mb' }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
