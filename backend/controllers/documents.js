@@ -1,6 +1,8 @@
 const { Document } = require('../schemas');
 
 // Not RESTful
+
+// This endpoint is useful for sorted/filtered lists of documents
 const getDocumentList = async (req, res) => {
   const { sort, filter, skip } = req.body
   try {
@@ -10,9 +12,6 @@ const getDocumentList = async (req, res) => {
       .skip(skip)
       .limit(20)
       .lean()
-    result.forEach(item => {
-      item.document = item.document.toString();
-    })
     res.status(200).json(result)
   } catch (e) {
     console.log(e)
@@ -23,11 +22,11 @@ const getDocumentList = async (req, res) => {
 const getDocumentById = async (req, res) => {
 	let { id } = req.params
 	try {
-		let result = await Document.findById(id).lean()
-    result.document = result.document.toString()
+		let result = await Document.findById(id)
 		res.status(200).json(result)
 	} catch (e) {
 		res.status(500).send(e);
+    console.log(e)
 	}
 }
 
@@ -44,7 +43,8 @@ const createDocument = async (req, res) => {
 const updateDocument = async (req, res) => {
   let { id } = req.params
   try {
-    await Document.findByIdAndUpdate(id, req.body)
+    // Make sure the document_type is available within the request body for this to work!
+    await Document.findOneAndUpdate({_id: id, document_type: req.body.document_type }, req.body)
     res.status(204).send('Document updated')
   } catch (e) {
     res.status(500).send(e)
