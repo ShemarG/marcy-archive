@@ -235,10 +235,8 @@
     }
 
     .project-tab {
-      border: 2px solid;
-      border-color: rgba(0, 0, 0, 0.1);
-      box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.1);
-      border-radius: 5%;
+      box-shadow: 0 15px 25px rgba(0,0,0,.6);
+      border-radius: 5px;
       padding: 40px;
       width: 85%;
     }
@@ -247,8 +245,9 @@
   @media screen and (min-width: 1024px) {
    .project-tab {
     width: 75%;
-    max-width: 1020px;
+    max-width: 650px;
     margin-top: 50px;
+    background-image: linear-gradient(to top, rgba(245, 245, 245, 0.5), white);
    }
   }
 </style>
