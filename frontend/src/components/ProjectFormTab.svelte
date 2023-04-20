@@ -20,6 +20,7 @@
   let repoLink = '';
   let pagesLink = '';
   let selectedLocation = 'NYC';
+  let presentation;
   
   // These control the validation of specific required inputs.
   let projectNameValid;
@@ -29,6 +30,7 @@
   let screenshotPreviewURL;
   let screenshotInput = ''
   let authorInput = ''
+  let presentationInput = ''
 
   const submit = async () => {
     if (!validateRequiredInputs()) return
@@ -45,6 +47,10 @@
     if (screenshot) {
       payload.screenshot = screenshot
     }
+    if (presentation) {
+      payload.presentation = presentation
+    }
+
     try {
       console.log(payload);
       await axios.post('http://localhost:3000/api/projects', payload)
@@ -61,6 +67,17 @@
       let dataURL = await fileToBase64(file)
       screenshot = dataURL.split(';base64,')[1]
       screenshotPreviewURL = fileToObjectURL(file)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const updatePresentation = async (e) => {
+    if (presentationInput == '') return;
+    let file = e.target.files[0]
+    try {
+      let dataURL = await fileToBase64(file)
+      presentation = dataURL.split(';base64,')[1]
     } catch (err) {
       console.log(err)
     }
@@ -96,7 +113,11 @@
   const removeScreenshot = () => {
     screenshotInput = ''
     screenshot = ''
-    screenshotPreviewURL = '';
+  }
+
+  const removePresentation = () => {
+    presentationInput = ''
+    presentation = ''
   }
 
   $: if (!authors.length && authorValid !== undefined) authorValid = false
@@ -195,6 +216,31 @@
       <figure>
         <img class="image-preview" src={screenshotPreviewURL} alt="Screenshot Preview"/>
       </figure>
+    {/if}
+  </div>
+
+  <div class="field">
+    <label class="label">Presentation (PDF)</label>
+    <div class="file has-name">
+      <label class="file-label">
+        <input class="file-input"
+          type="file" accept=".pdf"
+          bind:value={presentationInput}
+          on:change={updatePresentation}
+        />
+        <span class="file-cta">
+          <span class="file-icon"><Fa icon={faUpload}/></span>
+          <span class="file-label">Choose a file…</span>
+        </span>
+        <span class="file-name">{presentationInput ? presentationInput.split(/[\/\\]/)[2] : '...'}</span>
+      </label>
+    </div>
+    {#if presentation}
+      <button on:click={removePresentation} class="button is-danger">
+        <span class="icon is-small">
+          <Fa icon={faXmark}/>
+        </span>
+      </button>
     {/if}
   </div>
 

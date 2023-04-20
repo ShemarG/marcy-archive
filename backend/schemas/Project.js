@@ -9,7 +9,8 @@ let ProjectSchema = new Schema({
   authors: Array,
   github_repo_link: String,
   github_pages_link: String,
-  assignment: String
+  assignment: String,
+  presentation: Buffer
 })
 
 ProjectSchema.pre(['save', 'findOneAndUpdate'], function (){ 
