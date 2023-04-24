@@ -22,8 +22,8 @@ app.use('/api/photos', photosRouter);
 
 // Makes sure we serve the Svelte app first and foremost so it renders with every get request.
 // It is ultimately in charge of doing client-side routing and sending api requests to this server.
-app.get('*', (req, res) => {
-  res.sendFile('index.html', distPath)
-})
+// app.get('*', (req, res) => {
+//   res.sendFile('index.html', distPath)
+// })
 
 module.exports = app;

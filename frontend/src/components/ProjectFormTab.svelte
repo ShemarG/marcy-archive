@@ -8,6 +8,8 @@
 	import AuthorPillContainer from './AuthorPillContainer.svelte';
   import { getCurrentYear, fileToBase64, fileToObjectURL } from '../utils'
   import axios from 'axios'
+
+  const apiUrl = import.meta.env.VITE_API_URL
   
 
   // Data to send in API call.
@@ -47,7 +49,7 @@
     }
     try {
       console.log(payload);
-      await axios.post('http://localhost:3000/api/projects', payload)
+      await axios.post(`${apiUrl}/api/projects`, payload)
     } catch (e) {
       console.log(e)
     }
