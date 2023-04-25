@@ -1,7 +1,7 @@
 require('dotenv').config()
 let mongoose = require('mongoose');
 
-let connectionString = MONGODB_CONNECTION_STRING
+let connectionString = process.env.MONGODB_CONNECTION_STRING
 
 // Handy function that initializes the default mongoose connection.
 async function connectToDatabase() {

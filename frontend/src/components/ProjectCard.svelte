@@ -54,7 +54,7 @@
 
 <style>
   .project {
-    width: 275px;
+    width: 300px;
     height: 510px;
     margin: 10px;
     max-height: 510px;

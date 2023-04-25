@@ -67,7 +67,7 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 80vh;
+    height: 100%;
     z-index: 999;
   }
 
@@ -237,7 +237,7 @@
       width: 8em;
     }
     .main-content {
-      padding: 80px;
+      padding: 20px;
       padding-bottom: 0px;
     }
   }
