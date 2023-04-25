@@ -28,20 +28,24 @@
           <p>{project.description}</p>
         {/if}
         <div class="project-links">
-          <div>
-            <span class="icon is-small is-left">
-              <Fa icon={faGithub}/>
-            </span>
-            &nbsp;
-            <a href={project.github_repo_link}>Github Repo</a>
-          </div>
-          <div>
-            <span class="icon is-small is-left">
-              <Fa icon={faLink}/>
-            </span>
-            &nbsp;
-            <a href={project.github_pages_link}>Deployed Project</a>
-          </div>
+          {#if project.github_repo_link}
+            <div>
+              <span class="icon is-small is-left">
+                <Fa icon={faGithub}/>
+              </span>
+              &nbsp;
+              <a href={project.github_repo_link}>Github Repo</a>
+            </div>
+          {/if}
+          {#if project.github_pages_link}
+            <div>
+              <span class="icon is-small is-left">
+                <Fa icon={faLink}/>
+              </span>
+              &nbsp;
+              <a href={project.github_pages_link}>Deployed Project</a>
+            </div>
+          {/if}
         </div>
       </div>
     </div>
@@ -50,7 +54,7 @@
 
 <style>
   .project {
-    width: 275px;
+    width: 300px;
     height: 510px;
     margin: 10px;
     max-height: 510px;

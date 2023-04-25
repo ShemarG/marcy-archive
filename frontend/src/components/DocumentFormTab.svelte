@@ -3,6 +3,8 @@
   import { getCurrentYear, fileToBase64 } from '../utils'
   import Assignments from '../constants/assignments';
   import axios from 'axios'
+  
+  const apiUrl = import.meta.env.VITE_API_URL
 
   let documentTitle = ''
   let document;
@@ -40,7 +42,7 @@
     
     try {
       console.log(payload);
-      await axios.post('http://localhost:3000/api/documents', payload)
+      await axios.post(`${apiUrl}/api/documents`, payload)
     } catch (e) {
       console.log(e)
     }

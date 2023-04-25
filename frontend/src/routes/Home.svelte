@@ -7,6 +7,7 @@
     PROJECTS: "/projects",
     DOCUMENTS: "/documents",
     NEW_ARCHIVE: "/add-archive",
+    AUTH: '/authenticate'
   };
 </script>
 
@@ -24,7 +25,7 @@
             <a use:link href={pages.DOCUMENTS} class="btn darker-btn"
               >View Documents</a
             >
-            <a use:link href={pages.NEW_ARCHIVE} class="btn"
+            <a use:link href={pages.AUTH} class="btn"
               >Upload Your Own</a
             >
           </div>
@@ -66,7 +67,7 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 80vh;
+    height: 100%;
     z-index: 999;
   }
 
@@ -236,7 +237,7 @@
       width: 8em;
     }
     .main-content {
-      padding: 80px;
+      padding: 20px;
       padding-bottom: 0px;
     }
   }

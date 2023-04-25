@@ -12,7 +12,7 @@
 <style>
   @font-face {
     font-family: openSans;
-    src: url('OpenSans.ttf');
+    src: url('./assets/OpenSans.ttf');
   }
   * {
     font-family: openSans;

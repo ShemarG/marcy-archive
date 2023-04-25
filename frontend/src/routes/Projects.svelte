@@ -5,6 +5,8 @@
   import { possibleYears } from "../utils";
   import axios from "axios";
 
+  const apiUrl = import.meta.env.VITE_API_URL
+
   // Object that dynamically populates select tags, adding a select tag for each key in
   // 'projectsSortsAndFilters.filters' and their respective values. Sorts adds a potential
   // value for the 'Sort By' dropdown. The values in this object are probably worth abstracting
@@ -48,7 +50,7 @@
       filterPayload.assignment = filter.Assignment;
     try {
       let response = await axios.post(
-        "http://localhost:3000/api/projects/list",
+        `${apiUrl}/api/projects/list`,
         { sort, filter: filterPayload }
       );
       projects = [...response.data];

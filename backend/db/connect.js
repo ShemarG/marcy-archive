@@ -1,9 +1,12 @@
+require('dotenv').config()
 let mongoose = require('mongoose');
 
-// Handy function the initializes the default mongoose connection.
+let connectionString = process.env.MONGODB_CONNECTION_STRING
+
+// Handy function that initializes the default mongoose connection.
 async function connectToDatabase() {
   try {
-    let connection = await mongoose.connect('mongodb://localhost/marcy_archive')
+    let connection = await mongoose.connect(connectionString)
     console.info('Connected to database successfully.')
     return connection
   } catch (e) {

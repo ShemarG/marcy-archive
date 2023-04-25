@@ -64,6 +64,9 @@
   .tabs-wrapper {
     display: flex;
     flex-direction: column;
+    width: 75%;
+    max-width: 650px;
+    margin: 0 auto;
   }
 
   @media screen and (min-width: 768px) {

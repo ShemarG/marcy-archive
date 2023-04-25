@@ -3,11 +3,15 @@
   import Input from './Input.svelte'
   import CohortDropdown from './CohortDropdown.svelte'
   import { faGithub } from '@fortawesome/free-brands-svg-icons'
+  import { push } from 'svelte-spa-router'
   import Fa from 'svelte-fa/src/fa.svelte'
   import { faPenToSquare, faUser, faPlus, faLink, faUpload, faXmark } from '@fortawesome/free-solid-svg-icons'
 	import AuthorPillContainer from './AuthorPillContainer.svelte';
   import { getCurrentYear, fileToBase64, fileToObjectURL } from '../utils'
   import axios from 'axios'
+
+  const apiUrl = import.meta.env.VITE_API_URL
+  let actualPassword = import.meta.env.VITE_NEW_DOC_PSWD
   
 
   // Data to send in API call.
@@ -31,6 +35,7 @@
   let authorInput = ''
 
   const submit = async () => {
+    if(localStorage.getItem('secret-password') !== actualPassword) return
     if (!validateRequiredInputs()) return
     let payload = {}
     payload.name = projectName
@@ -46,8 +51,8 @@
       payload.screenshot = screenshot
     }
     try {
-      console.log(payload);
-      await axios.post('http://localhost:3000/api/projects', payload)
+      await axios.post(`${apiUrl}/api/projects`, payload)
+      push('/projects');
     } catch (e) {
       console.log(e)
     }
@@ -235,10 +240,8 @@
     }
 
     .project-tab {
-      border: 2px solid;
-      border-color: rgba(0, 0, 0, 0.1);
-      box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.1);
-      border-radius: 5%;
+      box-shadow: 0 15px 25px rgba(0,0,0,.6);
+      border-radius: 5px;
       padding: 40px;
       width: 85%;
     }
@@ -247,8 +250,9 @@
   @media screen and (min-width: 1024px) {
    .project-tab {
     width: 75%;
-    max-width: 1020px;
+    max-width: 650px;
     margin-top: 50px;
+    background-image: linear-gradient(to top, rgba(245, 245, 245, 0.5), white);
    }
   }
 </style>
