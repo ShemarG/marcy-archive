@@ -3,6 +3,7 @@
   import Input from './Input.svelte'
   import CohortDropdown from './CohortDropdown.svelte'
   import { faGithub } from '@fortawesome/free-brands-svg-icons'
+  import { push } from 'svelte-spa-router'
   import Fa from 'svelte-fa/src/fa.svelte'
   import { faPenToSquare, faUser, faPlus, faLink, faUpload, faXmark } from '@fortawesome/free-solid-svg-icons'
 	import AuthorPillContainer from './AuthorPillContainer.svelte';
@@ -10,6 +11,7 @@
   import axios from 'axios'
 
   const apiUrl = import.meta.env.VITE_API_URL
+  let actualPassword = import.meta.env.VITE_NEW_DOC_PSWD
   
 
   // Data to send in API call.
@@ -33,6 +35,7 @@
   let authorInput = ''
 
   const submit = async () => {
+    if(localStorage.getItem('secret-password') !== actualPassword) return
     if (!validateRequiredInputs()) return
     let payload = {}
     payload.name = projectName
@@ -48,8 +51,8 @@
       payload.screenshot = screenshot
     }
     try {
-      console.log(payload);
       await axios.post(`${apiUrl}/api/projects`, payload)
+      push('/projects');
     } catch (e) {
       console.log(e)
     }

@@ -7,6 +7,7 @@
     PROJECTS: "/projects",
     DOCUMENTS: "/documents",
     NEW_ARCHIVE: "/add-archive",
+    AUTH: '/authenticate'
   };
 </script>
 
@@ -24,7 +25,7 @@
             <a use:link href={pages.DOCUMENTS} class="btn darker-btn"
               >View Documents</a
             >
-            <a use:link href={pages.NEW_ARCHIVE} class="btn"
+            <a use:link href={pages.AUTH} class="btn"
               >Upload Your Own</a
             >
           </div>

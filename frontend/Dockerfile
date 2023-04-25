@@ -6,6 +6,7 @@ COPY . .
 
 # Install Node modules
 RUN npm ci
+RUN rm -rf dist
 RUN npm run build
 
 # Copy over rest of the project files

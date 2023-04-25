@@ -6,7 +6,8 @@
     LANDING: '/',
     PROJECTS: '/projects',
     DOCUMENTS: '/documents',
-    NEW_ARCHIVE: '/add-archive'
+    NEW_ARCHIVE: '/add-archive',
+    AUTH: '/authenticate'
   }
 </script>
 
@@ -44,8 +45,8 @@
           {#if $location !== pages.DOCUMENTS}
             <a use:link href={pages.DOCUMENTS} class="button is-light">Documents</a>
           {/if}
-          {#if $location !== pages.NEW_ARCHIVE}
-            <a use:link href={pages.NEW_ARCHIVE} class="button is-primary">+ New Archive</a>
+          {#if $location !== pages.NEW_ARCHIVE || $location !== pages.AUTH}
+            <a use:link href={pages.AUTH} class="button is-primary">+ New Archive</a>
           {/if}
         </div>
       </div>

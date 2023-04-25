@@ -49,7 +49,6 @@
     if (filter.Assignment != "All")
       filterPayload.assignment = filter.Assignment;
     try {
-      console.log('WHotes')
       let response = await axios.post(
         `${apiUrl}/api/projects/list`,
         { sort, filter: filterPayload }
